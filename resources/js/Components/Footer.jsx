@@ -1,0 +1,73 @@
+import { Link } from '@inertiajs/react';
+
+export default function Footer() {
+    return (
+        <footer className="bg-rd-black border-t border-rd-gold/16 py-14 px-8">
+            <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
+                <div className="col-span-2 md:col-span-1">
+                    <div className="font-kanit font-bold text-xl tracking-widest text-rd-cream mb-3">REDDERE</div>
+                    <p className="text-sm text-rd-cream/55 leading-relaxed max-w-[220px]">
+                        Vencer com Lealdade. Soluções financeiras completas para proteger e multiplicar seu patrimônio.
+                    </p>
+                </div>
+
+                <div>
+                    <div className="text-[11px] tracking-[2px] font-bold text-rd-gold mb-5">NAVEGAÇÃO</div>
+                    <ul className="flex flex-col gap-3">
+                        {[
+                            { href: '/#sobre', label: 'Sobre' },
+                            { href: '/solucoes', label: 'Soluções' },
+                            { href: '/consultor', label: 'Consultor On-line' },
+                            { href: '/time', label: 'Time' },
+                            { href: '/contato', label: 'Contato' },
+                        ].map((l) => (
+                            <li key={l.href}>
+                                <Link href={l.href} className="text-sm text-rd-cream/60 hover:text-rd-gold transition-colors">
+                                    {l.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div>
+                    <div className="text-[11px] tracking-[2px] font-bold text-rd-gold mb-5">SOLUÇÕES</div>
+                    <ul className="flex flex-col gap-3">
+                        {[
+                            'Consultoria de Investimentos',
+                            'Planejamento Financeiro',
+                            'Planejamento Sucessório',
+                            'Seguro de Vida',
+                            'Previdência Privada',
+                            'Câmbio e Internacional',
+                        ].map((s) => (
+                            <li key={s}>
+                                <Link href="/solucoes" className="text-sm text-rd-cream/60 hover:text-rd-gold transition-colors">
+                                    {s}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+
+                <div>
+                    <div className="text-[11px] tracking-[2px] font-bold text-rd-gold mb-5">CONTATO</div>
+                    <ul className="flex flex-col gap-3 text-sm text-rd-cream/60">
+                        <li>contato@reddere.com.br</li>
+                        <li>+55 (11) 9000-0000</li>
+                        <li>São Paulo, SP</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div className="max-w-[1240px] mx-auto mt-10 pt-6 border-t border-rd-cream/8 flex flex-wrap justify-between items-center gap-4">
+                <p className="text-xs text-rd-cream/35">
+                    © {new Date().getFullYear()} Reddere Soluções Financeiras. Todos os direitos reservados.
+                </p>
+                <p className="text-xs text-rd-cream/35">
+                    Regulada e supervisionada pela CVM · ANBIMA · CFP®
+                </p>
+            </div>
+        </footer>
+    );
+}

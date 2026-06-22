@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#0F3241;color:#EBE6E6;-webkit-font-smoothing:antialiased}
+  ::selection{background:#B99673;color:#0F3241}
+  @keyframes rd-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes rd-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes rd-vroll{from{opacity:0;transform:translateY(110%)}to{opacity:1;transform:translateY(0)}}
+  @media(max-width:640px){[data-ticker-sol]{padding:0 12px !important;gap:8px !important}[data-ticker-sol] > span{display:none !important}[data-ticker-sol] > div{width:150px !important}}
+  a{color:inherit;text-decoration:none}
+  input,textarea,select,button{font-family:inherit}
+  [data-mobile-btn]{display:none}
+  @media(max-width:920px){
+    [data-desktop-nav]{display:none !important}
+    [data-mobile-btn]{display:block !important}
+    [data-team]{grid-template-columns:repeat(2,1fr) !important}
+    [data-vals]{grid-template-columns:1fr !important}
+  }
+  @media(max-width:560px){ [data-team]{grid-template-columns:1fr !important} }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#0F3241;overflow-x:hidden">
+
+  <!-- BARRA DE COTAÇÕES -->
+  <div style="position:fixed;top:0;left:0;right:0;z-index:120;height:36px;background:#0A0A0A;border-bottom:1px solid rgba(185,150,115,.22);display:flex;align-items:center;overflow:hidden">
+    <div style="flex:1;overflow:hidden;height:100%;display:flex;align-items:center;-webkit-mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 24px),transparent)">
+      <div style="display:inline-flex;gap:34px;white-space:nowrap;padding-left:34px;animation:rd-marquee 36s linear infinite">
+        <sc-for list="{{ quotesLoop }}" as="q" hint-placeholder-count="12">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-family:'SFMono-Regular',ui-monospace,Menlo,monospace;font-size:12px">
+            <span style="color:rgba(235,230,230,.5);font-weight:600;letter-spacing:.5px">{{ q.label }}</span>
+            <span style="color:#EBE6E6;font-weight:600">{{ q.value }}</span>
+            <span style="color:#B99673;font-weight:700">{{ q.change }}</span>
+          </span>
+        </sc-for>
+      </div>
+    </div>
+    <div style="flex-shrink:0;height:100%;display:flex;align-items:center;gap:12px;padding:0 22px;border-left:1px solid rgba(185,150,115,.2);background:#0A0A0A" data-ticker-sol>
+      <span style="font-size:9.5px;letter-spacing:1.5px;color:#B99673;font-weight:700">SOLUÇÕES</span>
+      <div style="height:36px;overflow:hidden;display:flex;align-items:center;width:248px">
+        <span key="{{ tickIndex }}" style="font-size:12.5px;color:#EBE6E6;font-weight:500;white-space:nowrap;animation:rd-vroll .55s ease both">{{ currentSolution }}</span>
+      </div>
+    </div>
+  </div>
+
+  <header style="{{ headerStyle }}">
+    <div style="max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between">
+      <a href="Home.dc.html" style="display:flex;align-items:center">
+        <img src="assets/reddere-mark.png" alt="Reddere Investimentos" style="height:40px;width:auto;display:block"/>
+      </a>
+      <nav style="display:flex;align-items:center;gap:34px" data-desktop-nav>
+        <a href="Home.dc.html#sobre" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Sobre</a>
+        <a href="Solucoes.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Soluções</a>
+        <a href="Consultor.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Consultor On-line</a>
+        <a href="Time.dc.html" style="font-size:14.5px;font-weight:600;color:#B99673">Time</a>
+        <a href="Contato.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Contato</a>
+        <a href="Contato.dc.html" style="font-size:14px;font-weight:600;color:#0F3241;background:#B99673;padding:11px 20px;border-radius:2px;transition:all .2s" style-hover="background:#cda884;transform:translateY(-1px)">Fale com um especialista</a>
+      </nav>
+      <button onClick="{{ toggleMenu }}" style="background:none;border:none;cursor:pointer;padding:8px" data-mobile-btn>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#0A2632;border-top:1px solid rgba(185,150,115,.2);padding:18px 32px;display:flex;flex-direction:column;gap:4px">
+        <a href="Home.dc.html#sobre" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Sobre</a>
+        <a href="Solucoes.dc.html" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Soluções</a>
+        <a href="Consultor.dc.html" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Consultor On-line</a>
+        <a href="Time.dc.html" style="padding:11px 0;color:#B99673;border-bottom:1px solid rgba(235,230,230,.07)">Time</a>
+        <a href="Contato.dc.html" style="padding:11px 0;color:#B99673">Fale com um especialista →</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <!-- HERO -->
+  <section style="position:relative;padding:160px 32px 70px;overflow:hidden">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(185,150,115,.05) 0 1px,transparent 1px 26px),repeating-linear-gradient(-45deg,rgba(185,150,115,.05) 0 1px,transparent 1px 26px)"></div>
+    <div style="max-width:1240px;margin:0 auto;position:relative">
+      <div style="font-size:12px;letter-spacing:2.5px;font-weight:700;color:#B99673;margin-bottom:18px">NOSSO TIME</div>
+      <h1 style="font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(34px,5vw,60px);line-height:1.05;letter-spacing:-1px;max-width:780px;animation:rd-rise .7s ease both">Especialistas que tratam seu patrimônio como se fosse o próprio.</h1>
+      <p style="font-size:18px;line-height:1.65;color:rgba(235,230,230,.75);margin-top:22px;max-width:620px">Profissionais certificados, com formação sólida e dedicação integral a cada cliente. Determinação e técnica a serviço do seu êxito.</p>
+    </div>
+  </section>
+
+  <!-- TIME GRID -->
+  <section style="background:#F4F1EE;color:#2a2620;padding:80px 32px">
+    <div style="max-width:1240px;margin:0 auto">
+      <div data-team style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px">
+        <sc-for list="{{ team }}" as="m" hint-placeholder-count="6">
+          <div style="background:#fff;border:1px solid rgba(125,110,93,.16);border-radius:5px;overflow:hidden;transition:all .25s" style-hover="transform:translateY(-5px);box-shadow:0 18px 44px rgba(15,50,65,.14)">
+            <div style="aspect-ratio:1/1;background:#0F3241;position:relative;display:flex;align-items:center;justify-content:center">
+              <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(185,150,115,.1) 0 1px,transparent 1px 16px),repeating-linear-gradient(-45deg,rgba(185,150,115,.1) 0 1px,transparent 1px 16px)"></div>
+              <div style="position:relative;width:84px;height:84px;border-radius:50%;background:#0F5564;display:flex;align-items:center;justify-content:center;font-family:'Kanit',sans-serif;font-weight:700;font-size:30px;color:#B99673">{{ m.initials }}</div>
+            </div>
+            <div style="padding:24px">
+              <h3 style="font-family:'Kanit',sans-serif;font-weight:700;font-size:20px;color:#0F3241">{{ m.name }}</h3>
+              <div style="font-size:14px;color:#7D6E5D;font-weight:500;margin-top:3px">{{ m.role }}</div>
+              <div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:14px">
+                <sc-for list="{{ m.creds }}" as="c" hint-placeholder-count="2">
+                  <span style="font-size:11px;font-weight:700;letter-spacing:.5px;color:#0F3241;background:rgba(185,150,115,.2);padding:5px 10px;border-radius:2px">{{ c }}</span>
+                </sc-for>
+              </div>
+              <p style="font-size:13.5px;line-height:1.6;color:#7D6E5D;margin-top:16px">{{ m.bio }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALORES -->
+  <section style="background:#0F3241;padding:100px 32px;position:relative">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(185,150,115,.035) 0 1px,transparent 1px 26px),repeating-linear-gradient(-45deg,rgba(185,150,115,.035) 0 1px,transparent 1px 26px)"></div>
+    <div style="max-width:1100px;margin:0 auto;position:relative">
+      <div style="text-align:center;margin-bottom:50px">
+        <div style="font-size:12px;letter-spacing:2.5px;font-weight:700;color:#B99673;margin-bottom:14px">O QUE NOS MOVE</div>
+        <h2 style="font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-.5px">Princípios inegociáveis</h2>
+      </div>
+      <div data-vals style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <sc-for list="{{ values }}" as="v" hint-placeholder-count="3">
+          <div style="border:1px solid rgba(185,150,115,.18);border-radius:4px;padding:34px 30px;background:rgba(15,85,100,.25)">
+            <div style="width:44px;height:44px;border:1.5px solid #B99673;display:flex;align-items:center;justify-content:center;margin-bottom:20px">
+              <div style="width:18px;height:18px;background:#B99673;clip-path:{{ v.glyph }}"></div>
+            </div>
+            <h3 style="font-family:'Kanit',sans-serif;font-weight:600;font-size:20px;color:#EBE6E6">{{ v.title }}</h3>
+            <p style="font-size:14.5px;line-height:1.65;color:rgba(235,230,230,.68);margin-top:10px">{{ v.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:#0F5564;padding:90px 32px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(185,150,115,.06) 0 1px,transparent 1px 24px),repeating-linear-gradient(-45deg,rgba(185,150,115,.06) 0 1px,transparent 1px 24px)"></div>
+    <div style="max-width:760px;margin:0 auto;text-align:center;position:relative">
+      <h2 style="font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(28px,3.8vw,46px);line-height:1.1;letter-spacing:-.5px">Conheça quem vai cuidar do seu patrimônio</h2>
+      <p style="font-size:17px;color:rgba(235,230,230,.78);margin-top:16px">Agende uma conversa com um de nossos especialistas.</p>
+      <a href="Contato.dc.html" style="display:inline-flex;align-items:center;gap:10px;margin-top:32px;background:#B99673;color:#0F3241;font-weight:700;font-size:16px;padding:17px 36px;border-radius:2px;transition:all .2s" style-hover="background:#cda884;transform:translateY(-2px)">Fale com um especialista<span style="font-size:18px">→</span></a>
+    </div>
+  </section>
+
+  <footer style="background:#0A2632;padding:48px 32px;border-top:1px solid rgba(185,150,115,.18)">
+    <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+      <a href="Home.dc.html" style="display:flex;align-items:center">
+        <img src="assets/reddere-mark.png" alt="Reddere Investimentos" style="height:30px;width:auto;display:block"/>
+      </a>
+      <span style="font-size:12px;color:rgba(235,230,230,.42)">© 2026 Reddere Investimentos · Vencer com Lealdade.</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { menuOpen: false, scrolled: false, tickIndex: 0 };
+  componentDidMount() {
+    this._onScroll = () => {
+      const s = window.scrollY > 30;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._tickerSols = ['Consultoria de investimentos personalizada','Planejamento financeiro e patrimonial','Renda fixa e renda variável','Previdência privada','Sucessão e proteção patrimonial','Câmbio e investimentos internacionais'];
+    this._tick = setInterval(() => { this.setState(s => ({ tickIndex: (s.tickIndex + 1) % this._tickerSols.length })); }, 3000);
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); clearInterval(this._tick); }
+
+  renderVals() {
+    const { scrolled, menuOpen, tickIndex } = this.state;
+    const quotes = [{ label: 'IBOVESPA', value: '128.450', change: '▲ 0,84%' },{ label: 'USD/BRL', value: 'R$ 5,42', change: '▼ 0,21%' },{ label: 'EUR/BRL', value: 'R$ 5,88', change: '▲ 0,12%' },{ label: 'CDI', value: '10,40% a.a.', change: '▬ 0,00%' },{ label: 'IPCA 12m', value: '4,12%', change: '▲ 0,08%' },{ label: 'BTC/USD', value: 'US$ 67.200', change: '▲ 1,30%' }];
+    const sols = this._tickerSols || ['Consultoria de investimentos personalizada'];
+    return {
+      menuOpen,
+      quotesLoop: [...quotes, ...quotes],
+      tickIndex,
+      currentSolution: sols[tickIndex % sols.length],
+      headerStyle: {
+        position: 'fixed', top: '36px', left: 0, right: 0, zIndex: 100,
+        background: scrolled ? 'rgba(10,38,50,.92)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(185,150,115,.18)' : '1px solid transparent',
+        transition: 'all .3s ease', color: '#EBE6E6',
+      },
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      team: [
+        { initials: 'CF', name: 'Carlos Ferreira', role: 'Sócio-fundador · Head de Investimentos', creds: ['CFP', 'CGA'], bio: '20 anos no mercado financeiro, com passagem por gestoras e private banking.' },
+        { initials: 'MA', name: 'Mariana Alves', role: 'Sócia · Planejamento Patrimonial', creds: ['CFP', 'CEA'], bio: 'Especialista em planejamento sucessório e estruturação de patrimônio familiar.' },
+        { initials: 'RT', name: 'Rafael Tavares', role: 'Especialista em Renda Variável', creds: ['CNPI', 'CEA'], bio: 'Análise fundamentalista e construção de carteiras de ações de longo prazo.' },
+        { initials: 'JS', name: 'Juliana Souza', role: 'Especialista em Previdência', creds: ['CEA', 'CFP'], bio: 'Foco em planejamento de aposentadoria e eficiência tributária.' },
+        { initials: 'PM', name: 'Pedro Martins', role: 'Especialista em Investimentos Internacionais', creds: ['CGA', 'CFA L2'], bio: 'Diversificação global, câmbio e alocação em ativos no exterior.' },
+        { initials: 'LB', name: 'Luiza Bianchi', role: 'Relacionamento com o Cliente', creds: ['CEA'], bio: 'Garante acompanhamento próximo e comunicação clara em toda a jornada.' },
+      ],
+      values: [
+        { title: 'Lealdade', glyph: 'polygon(50% 0,100% 38%,82% 100%,18% 100%,0 38%)', desc: 'O interesse do cliente vem sempre em primeiro lugar, sem exceções.' },
+        { title: 'Disciplina', glyph: 'polygon(0 0,100% 0,100% 100%,0 100%)', desc: 'Decisões guiadas por processo e análise, não por emoção ou modismo.' },
+        { title: 'Determinação', glyph: 'polygon(50% 0,100% 100%,0 100%)', desc: 'Foco no resultado de longo prazo, com pragmatismo e dinamismo.' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

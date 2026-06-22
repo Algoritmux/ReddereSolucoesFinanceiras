@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./reddere-store.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#0F3241;color:#EBE6E6;-webkit-font-smoothing:antialiased}
+  ::selection{background:#B99673;color:#0F3241}
+  @keyframes rd-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes rd-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes rd-vroll{from{opacity:0;transform:translateY(110%)}to{opacity:1;transform:translateY(0)}}
+  @keyframes rd-pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes rd-blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
+  @media(max-width:640px){[data-ticker-sol]{padding:0 12px !important;gap:8px !important}[data-ticker-sol] > span{display:none !important}[data-ticker-sol] > div{width:150px !important}}
+  a{color:inherit;text-decoration:none}
+  input,textarea,select,button{font-family:inherit}
+  input::placeholder,textarea::placeholder{color:rgba(235,230,230,.4)}
+  [data-mobile-btn]{display:none}
+  @media(max-width:920px){[data-desktop-nav]{display:none !important}[data-mobile-btn]{display:block !important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#0F3241;overflow-x:hidden">
+
+  <!-- BARRA DE COTAÇÕES -->
+  <div style="position:fixed;top:0;left:0;right:0;z-index:120;height:36px;background:#0A0A0A;border-bottom:1px solid rgba(185,150,115,.22);display:flex;align-items:center;overflow:hidden">
+    <div style="flex:1;overflow:hidden;height:100%;display:flex;align-items:center;-webkit-mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(90deg,transparent,#000 36px,#000 calc(100% - 24px),transparent)">
+      <div style="display:inline-flex;gap:34px;white-space:nowrap;padding-left:34px;animation:rd-marquee 36s linear infinite">
+        <sc-for list="{{ quotesLoop }}" as="q" hint-placeholder-count="12">
+          <span style="display:inline-flex;align-items:center;gap:8px;font-family:'SFMono-Regular',ui-monospace,Menlo,monospace;font-size:12px">
+            <span style="color:rgba(235,230,230,.5);font-weight:600;letter-spacing:.5px">{{ q.label }}</span>
+            <span style="color:#EBE6E6;font-weight:600">{{ q.value }}</span>
+            <span style="color:#B99673;font-weight:700">{{ q.change }}</span>
+          </span>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <header style="{{ headerStyle }}">
+    <div style="max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between">
+      <a href="Home.dc.html" style="display:flex;align-items:center">
+        <img src="assets/reddere-mark.png" alt="Reddere Investimentos" style="height:40px;width:auto;display:block"/>
+      </a>
+      <nav style="display:flex;align-items:center;gap:30px" data-desktop-nav>
+        <a href="Home.dc.html#sobre" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Sobre</a>
+        <a href="Solucoes.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Soluções</a>
+        <a href="Consultor.dc.html" style="font-size:14.5px;font-weight:600;color:#B99673">Consultor On-line</a>
+        <a href="Time.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Time</a>
+        <a href="Contato.dc.html" style="font-size:14px;font-weight:600;color:#0F3241;background:#B99673;padding:11px 20px;border-radius:2px;transition:all .2s" style-hover="background:#cda884;transform:translateY(-1px)">Fale com um especialista</a>
+      </nav>
+      <button onClick="{{ toggleMenu }}" style="background:none;border:none;cursor:pointer;padding:8px" data-mobile-btn>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#0A2632;border-top:1px solid rgba(185,150,115,.2);padding:18px 32px;display:flex;flex-direction:column;gap:4px">
+        <a href="Home.dc.html#sobre" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Sobre</a>
+        <a href="Solucoes.dc.html" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Soluções</a>
+        <a href="Consultor.dc.html" style="padding:11px 0;color:#B99673;border-bottom:1px solid rgba(235,230,230,.07)">Consultor On-line</a>
+        <a href="Time.dc.html" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Time</a>
+        <a href="Contato.dc.html" style="padding:11px 0;color:#B99673">Fale com um especialista →</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <!-- CONSULTOR IA -->
+  <section style="position:relative;padding:128px 24px 60px;overflow:hidden;min-height:100vh">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(185,150,115,.04) 0 1px,transparent 1px 26px),repeating-linear-gradient(-45deg,rgba(185,150,115,.04) 0 1px,transparent 1px 26px)"></div>
+    <div style="max-width:860px;margin:0 auto;position:relative">
+
+      <div style="text-align:center;margin-bottom:26px">
+        <div style="display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(185,150,115,.4);padding:7px 15px;border-radius:2px;margin-bottom:20px">
+          <span style="width:6px;height:6px;background:#5fb98c;border-radius:50%;box-shadow:0 0 8px #5fb98c"></span>
+          <span style="font-size:12px;letter-spacing:2px;font-weight:600;color:#B99673">CONSULTOR ON-LINE · DISPONÍVEL AGORA</span>
+        </div>
+        <h1 style="font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(28px,4vw,46px);line-height:1.08;letter-spacing:-.5px;animation:rd-rise .7s ease both">Não sabe por onde começar? Descubra conversando.</h1>
+        <p style="font-size:16px;line-height:1.6;color:rgba(235,230,230,.72);margin-top:14px;max-width:560px;margin-left:auto;margin-right:auto">Responda algumas perguntas ao nosso consultor on-line e receba uma orientação sobre quais soluções da Reddere fazem sentido para o seu momento.</p>
+      </div>
+
+      <!-- JANELA DE CHAT -->
+      <div style="background:#0A2632;border:1px solid rgba(185,150,115,.22);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;height:560px;box-shadow:0 24px 60px rgba(0,0,0,.35)">
+
+        <!-- topo -->
+        <div style="display:flex;align-items:center;gap:13px;padding:16px 22px;border-bottom:1px solid rgba(185,150,115,.16);background:#0F3241">
+          <div style="width:42px;height:42px;border-radius:50%;background:#0F5564;border:1px solid rgba(185,150,115,.4);display:flex;align-items:center;justify-content:center;font-family:'Kanit',sans-serif;font-weight:700;color:#B99673;font-size:17px">R</div>
+          <div style="flex:1">
+            <div style="font-weight:600;font-size:15px;color:#EBE6E6">Consultor Reddere</div>
+            <div style="font-size:12px;color:#5fb98c;font-weight:500">● Online · respostas orientativas</div>
+          </div>
+          <button onClick="{{ resetChat }}" style="background:transparent;border:1px solid rgba(235,230,230,.2);color:rgba(235,230,230,.7);font-size:12.5px;font-weight:600;padding:8px 14px;border-radius:2px;cursor:pointer" style-hover="border-color:#B99673;color:#B99673">Nova conversa</button>
+        </div>
+
+        <!-- mensagens -->
+        <div ref="{{ scrollRef }}" style="flex:1;overflow-y:auto;padding:24px 22px;display:flex;flex-direction:column;gap:16px">
+          <sc-for list="{{ view }}" as="m" hint-placeholder-count="2">
+            <div style="{{ m.rowStyle }}">
+              <sc-if value="{{ m.showAvatar }}" hint-placeholder-val="{{ false }}">
+                <div style="width:32px;height:32px;border-radius:50%;background:#0F5564;border:1px solid rgba(185,150,115,.35);display:flex;align-items:center;justify-content:center;font-family:'Kanit',sans-serif;font-weight:700;color:#B99673;font-size:13px;flex-shrink:0">R</div>
+              </sc-if>
+              <div style="{{ m.bubbleStyle }}">{{ m.content }}</div>
+            </div>
+          </sc-for>
+
+          <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:flex-end;gap:10px;animation:rd-pop .3s ease both">
+              <div style="width:32px;height:32px;border-radius:50%;background:#0F5564;border:1px solid rgba(185,150,115,.35);display:flex;align-items:center;justify-content:center;font-family:'Kanit',sans-serif;font-weight:700;color:#B99673;font-size:13px;flex-shrink:0">R</div>
+              <div style="background:#0F3241;border:1px solid rgba(185,150,115,.16);border-radius:3px 14px 14px 14px;padding:15px 18px;display:flex;gap:5px">
+                <span style="width:7px;height:7px;border-radius:50%;background:#B99673;animation:rd-blink 1.2s infinite"></span>
+                <span style="width:7px;height:7px;border-radius:50%;background:#B99673;animation:rd-blink 1.2s infinite .2s"></span>
+                <span style="width:7px;height:7px;border-radius:50%;background:#B99673;animation:rd-blink 1.2s infinite .4s"></span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <!-- sugestões -->
+        <sc-if value="{{ showChips }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 14px">
+            <sc-for list="{{ chips }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.onClick }}" style="background:rgba(185,150,115,.12);border:1px solid rgba(185,150,115,.3);color:#EBE6E6;font-size:13px;font-weight:500;padding:9px 14px;border-radius:30px;cursor:pointer;text-align:left" style-hover="background:rgba(185,150,115,.24);border-color:#B99673">{{ c.label }}</button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- input -->
+        <div style="display:flex;gap:10px;padding:16px 18px;border-top:1px solid rgba(185,150,115,.16);background:#0F3241">
+          <input value="{{ draft }}" onChange="{{ onDraft }}" onKeyDown="{{ onKey }}" placeholder="Escreva sua mensagem..." style="flex:1;background:#0A2632;border:1px solid rgba(235,230,230,.18);color:#EBE6E6;font-size:15px;padding:14px 16px;border-radius:3px;outline:none"/>
+          <button onClick="{{ send }}" style="{{ sendStyle }}">Enviar</button>
+        </div>
+      </div>
+
+      <p style="font-size:12px;line-height:1.55;color:rgba(235,230,230,.45);text-align:center;margin-top:18px;max-width:600px;margin-left:auto;margin-right:auto">O consultor virtual oferece orientação inicial e não substitui o atendimento de um especialista certificado. Esta conversa é registrada para que nossa equipe possa dar continuidade.</p>
+
+      <div style="text-align:center;margin-top:14px">
+        <a href="Contato.dc.html" style="display:inline-flex;align-items:center;gap:8px;font-weight:600;color:#B99673;font-size:15px" style-hover="color:#cda884">Prefere falar com uma pessoa? Fale com um especialista →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#0A2632;padding:48px 32px;border-top:1px solid rgba(185,150,115,.18)">
+    <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px">
+      <a href="Home.dc.html" style="display:flex;align-items:center">
+        <img src="assets/reddere-mark.png" alt="Reddere Investimentos" style="height:30px;width:auto;display:block"/>
+      </a>
+      <div style="display:flex;gap:22px;font-size:13px;color:rgba(235,230,230,.6)">
+        <a href="Perfil.dc.html" style-hover="color:#B99673">Análise de perfil</a>
+        <a href="Solucoes.dc.html" style-hover="color:#B99673">Soluções</a>
+        <a href="Contato.dc.html" style-hover="color:#B99673">Contato</a>
+      </div>
+      <span style="font-size:12px;color:rgba(235,230,230,.42)">© 2026 Reddere · Vencer com Lealdade</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    menuOpen: false, scrolled: false,
+    draft: '',
+    loading: false,
+    messages: [],            // {role:'user'|'assistant', content}
+    convId: null,
+  };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const s = window.scrollY > 30;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._greet();
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); }
+
+  componentDidUpdate() {
+    const el = this._scrollEl;
+    if (el) el.scrollTop = el.scrollHeight;
+  }
+
+  _solTitles() {
+    try { return (window.ReddereStore.getSolucoesAtivas() || []).map(s => s.title); }
+    catch (e) { return ['Consultoria de investimentos','Planejamento sucessório','Seguro de vida','Previdência privada']; }
+  }
+
+  _persona() {
+    const sols = this._solTitles().map(t => '• ' + t).join('\n');
+    return [
+      'Você é o Consultor Virtual da Reddere Soluções Financeiras, cujo lema é "Vencer com Lealdade".',
+      'Seu papel é ajudar visitantes que não sabem do que precisam a descobrir, por meio de uma conversa acolhedora e objetiva, quais soluções da Reddere fazem sentido para o momento de vida deles.',
+      '',
+      'Soluções disponíveis da Reddere:',
+      sols,
+      '',
+      'Diretrizes:',
+      '- Responda sempre em português do Brasil, com tom profissional, próximo e claro.',
+      '- Faça UMA pergunta de cada vez para entender objetivos, momento de vida, família, horizonte e tolerância a risco.',
+      '- Após entender o suficiente, recomende 1 a 3 soluções da lista acima, explicando brevemente por quê.',
+      '- Seja conciso: respostas curtas, de 2 a 4 frases. Sem jargão excessivo.',
+      '- NÃO prometa rentabilidade, não dê recomendação de compra/venda de ativos específicos e não garanta resultados.',
+      '- Sempre que recomendar algo, convide a pessoa a falar com um especialista pela página de Contato.',
+    ].join('\n');
+  }
+
+  _greet() {
+    const conv = window.ReddereStore.saveConversa({ messages: [], resumo: 'Nova conversa', origem: 'Consultor On-line' });
+    this.setState({
+      convId: conv.id,
+      messages: [{ role: 'assistant', content: 'Olá! Sou o consultor virtual da Reddere. Para começar, me conte: o que mais pesa hoje quando você pensa no seu dinheiro e no futuro da sua família?' }],
+    });
+  }
+
+  _persist(messages) {
+    const firstUser = messages.find(m => m.role === 'user');
+    window.ReddereStore.saveConversa({
+      id: this.state.convId,
+      messages,
+      resumo: firstUser ? firstUser.content.slice(0, 80) : 'Nova conversa',
+      origem: 'Consultor On-line',
+    });
+  }
+
+  _doSend(text) {
+    const clean = (text || '').trim();
+    if (!clean || this.state.loading) return;
+    const messages = [...this.state.messages, { role: 'user', content: clean }];
+    this.setState({ messages, draft: '', loading: true });
+    this._persist(messages);
+
+    const apiMessages = [
+      { role: 'user', content: this._persona() },
+      { role: 'assistant', content: 'Entendido. Vou ajudar com lealdade e clareza.' },
+      ...messages,
+    ];
+
+    window.claude.complete({ messages: apiMessages })
+      .then(reply => {
+        const out = [...messages, { role: 'assistant', content: (reply || '').trim() || 'Desculpe, pode reformular?' }];
+        this.setState({ messages: out, loading: false });
+        this._persist(out);
+      })
+      .catch(() => {
+        const out = [...messages, { role: 'assistant', content: 'Tive um problema para responder agora. Você pode tentar de novo ou falar diretamente com um especialista pela página de Contato.' }];
+        this.setState({ messages: out, loading: false });
+        this._persist(out);
+      });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const quotes = [{ label: 'IBOVESPA', value: '128.450', change: '▲ 0,84%' },{ label: 'USD/BRL', value: 'R$ 5,42', change: '▼ 0,21%' },{ label: 'EUR/BRL', value: 'R$ 5,88', change: '▲ 0,12%' },{ label: 'CDI', value: '10,40% a.a.', change: '▬ 0,00%' },{ label: 'IPCA 12m', value: '4,12%', change: '▲ 0,08%' },{ label: 'BTC/USD', value: 'US$ 67.200', change: '▲ 1,30%' }];
+
+    const view = s.messages.map((m, i) => {
+      const isUser = m.role === 'user';
+      return {
+        content: m.content,
+        showAvatar: !isUser,
+        rowStyle: {
+          display: 'flex', alignItems: 'flex-end', gap: '10px',
+          justifyContent: isUser ? 'flex-end' : 'flex-start',
+          animation: 'rd-pop .3s ease both',
+        },
+        bubbleStyle: isUser
+          ? { maxWidth: '78%', background: '#B99673', color: '#0F3241', fontWeight: 500, fontSize: '15px', lineHeight: 1.55, padding: '13px 17px', borderRadius: '14px 14px 3px 14px', whiteSpace: 'pre-wrap' }
+          : { maxWidth: '78%', background: '#0F3241', border: '1px solid rgba(185,150,115,.16)', color: 'rgba(235,230,230,.92)', fontSize: '15px', lineHeight: 1.6, padding: '13px 17px', borderRadius: '3px 14px 14px 14px', whiteSpace: 'pre-wrap' },
+      };
+    });
+
+    const chip = (label) => ({ label, onClick: () => this._doSend(label) });
+
+    return {
+      menuOpen: s.menuOpen,
+      quotesLoop: [...quotes, ...quotes],
+      headerStyle: {
+        position: 'fixed', top: '36px', left: 0, right: 0, zIndex: 100,
+        background: s.scrolled ? 'rgba(10,38,50,.92)' : 'rgba(10,38,50,.6)',
+        backdropFilter: 'blur(12px)',
+        borderBottom: s.scrolled ? '1px solid rgba(185,150,115,.18)' : '1px solid transparent',
+        transition: 'all .3s ease', color: '#EBE6E6',
+      },
+      toggleMenu: () => this.setState(p => ({ menuOpen: !p.menuOpen })),
+
+      view,
+      loading: s.loading,
+      draft: s.draft,
+      scrollRef: (el) => { this._scrollEl = el; },
+      onDraft: e => this.setState({ draft: e.target.value }),
+      onKey: e => { if (e.key === 'Enter') { e.preventDefault(); this._doSend(this.state.draft); } },
+      send: () => this._doSend(this.state.draft),
+      sendStyle: {
+        background: '#B99673', color: '#0F3241', fontWeight: 700, fontSize: '15px',
+        padding: '0 24px', border: 'none', borderRadius: '3px', cursor: 'pointer',
+        opacity: s.loading ? .6 : 1,
+      },
+      resetChat: () => this._greet(),
+
+      showChips: s.messages.length <= 1 && !s.loading,
+      chips: [
+        chip('Quero proteger minha família'),
+        chip('Penso na aposentadoria'),
+        chip('Quero organizar a sucessão do patrimônio'),
+        chip('Quero começar a investir'),
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

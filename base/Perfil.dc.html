@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./reddere-store.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#0F3241;color:#EBE6E6;-webkit-font-smoothing:antialiased}
+  ::selection{background:#B99673;color:#0F3241}
+  @keyframes rd-rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes rd-pop{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes rd-grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  a{color:inherit;text-decoration:none}
+  input,textarea,select,button{font-family:inherit}
+  input::placeholder{color:rgba(235,230,230,.4)}
+  [data-mobile-btn]{display:none}
+  @media(max-width:920px){[data-desktop-nav]{display:none !important}[data-mobile-btn]{display:block !important}}
+  @media(max-width:680px){[data-result-grid]{grid-template-columns:1fr !important}[data-alloc]{flex-direction:column !important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#0F3241;overflow-x:hidden">
+
+  <header style="{{ headerStyle }}">
+    <div style="max-width:1240px;margin:0 auto;padding:0 32px;height:76px;display:flex;align-items:center;justify-content:space-between">
+      <a href="Home.dc.html" style="display:flex;align-items:center">
+        <img src="assets/reddere-mark.png" alt="Reddere Investimentos" style="height:40px;width:auto;display:block"/>
+      </a>
+      <nav style="display:flex;align-items:center;gap:30px" data-desktop-nav>
+        <a href="Home.dc.html#sobre" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Sobre</a>
+        <a href="Solucoes.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Soluções</a>
+        <a href="Consultor.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Consultor On-line</a>
+        <a href="Time.dc.html" style="font-size:14.5px;font-weight:500;opacity:.85" style-hover="opacity:1;color:#B99673">Time</a>
+        <a href="Contato.dc.html" style="font-size:14px;font-weight:600;color:#0F3241;background:#B99673;padding:11px 20px;border-radius:2px;transition:all .2s" style-hover="background:#cda884;transform:translateY(-1px)">Fale com um especialista</a>
+      </nav>
+      <button onClick="{{ toggleMenu }}" style="background:none;border:none;cursor:pointer;padding:8px" data-mobile-btn>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+        <div style="width:24px;height:2px;background:#EBE6E6;margin:5px 0"></div>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#0A2632;border-top:1px solid rgba(185,150,115,.2);padding:18px 32px;display:flex;flex-direction:column;gap:4px">
+        <a href="Solucoes.dc.html" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Soluções</a>
+        <a href="Consultor.dc.html" style="padding:11px 0;border-bottom:1px solid rgba(235,230,230,.07)">Consultor On-line</a>
+        <a href="Contato.dc.html" style="padding:11px 0;color:#B99673">Fale com um especialista →</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <section style="position:relative;padding:128px 24px 90px;overflow:hidden;min-height:100vh">
+    <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(185,150,115,.04) 0 1px,transparent 1px 26px),repeating-linear-gradient(-45deg,rgba(185,150,115,.04) 0 1px,transparent 1px 26px)"></div>
+    <div style="max-width:760px;margin:0 auto;position:relative">
+
+      <div style="text-align:center;margin-bottom:34px">
+        <div style="font-size:12px;letter-spacing:2.5px;font-weight:700;color:#B99673;margin-bottom:16px">ANÁLISE DE PERFIL DE INVESTIDOR</div>
+        <h1 style="font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(28px,4vw,46px);line-height:1.08;letter-spacing:-.5px;animation:rd-rise .7s ease both">Descubra o seu perfil de investidor</h1>
+        <p style="font-size:16px;line-height:1.6;color:rgba(235,230,230,.72);margin-top:14px;max-width:540px;margin-left:auto;margin-right:auto">Seis perguntas rápidas para entender sua relação com risco, prazo e objetivos — e quais soluções da Reddere combinam com você.</p>
+      </div>
+
+      <!-- QUIZ -->
+      <sc-if value="{{ inQuiz }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#0A2632;border:1px solid rgba(185,150,115,.22);border-radius:8px;padding:36px;animation:rd-pop .4s ease both" key="{{ stepKey }}">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:12.5px;font-weight:700;letter-spacing:1px;color:#B99673">PERGUNTA {{ stepNum }} DE {{ total }}</span>
+            <span style="font-size:12.5px;color:rgba(235,230,230,.5)">{{ pct }}%</span>
+          </div>
+          <div style="height:5px;background:rgba(235,230,230,.1);border-radius:10px;overflow:hidden;margin-bottom:28px">
+            <div style="height:100%;background:#B99673;border-radius:10px;width:{{ pctW }};transition:width .4s ease"></div>
+          </div>
+
+          <h2 style="font-family:'Kanit',sans-serif;font-weight:600;font-size:23px;line-height:1.25;color:#EBE6E6;margin-bottom:22px">{{ qText }}</h2>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <sc-for list="{{ options }}" as="o" hint-placeholder-count="4">
+              <button onClick="{{ o.onClick }}" style="{{ o.style }}">
+                <span style="{{ o.dotStyle }}"></span>
+                <span style="flex:1;text-align:left">{{ o.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;margin-top:26px">
+            <button onClick="{{ back }}" style="{{ backStyle }}">← Voltar</button>
+            <span style="font-size:13px;color:rgba(235,230,230,.4);align-self:center">Selecione uma opção para avançar</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- RESULTADO -->
+      <sc-if value="{{ inResult }}" hint-placeholder-val="{{ false }}">
+        <div style="animation:rd-pop .5s ease both">
+          <div style="background:#0A2632;border:1px solid rgba(185,150,115,.3);border-radius:8px;overflow:hidden">
+            <div style="padding:36px;text-align:center;background:linear-gradient(180deg,rgba(15,85,100,.5),transparent)">
+              <div style="font-size:12px;letter-spacing:2px;font-weight:700;color:#B99673;margin-bottom:14px">SEU PERFIL É</div>
+              <div style="font-family:'Kanit',sans-serif;font-weight:700;font-size:clamp(32px,5vw,52px);color:#EBE6E6;line-height:1">{{ r_perfil }}</div>
+              <p style="font-size:16px;line-height:1.6;color:rgba(235,230,230,.78);margin-top:16px;max-width:480px;margin-left:auto;margin-right:auto">{{ r_desc }}</p>
+            </div>
+
+            <div data-result-grid style="display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid rgba(185,150,115,.16)">
+              <!-- alocação -->
+              <div style="padding:32px;border-right:1px solid rgba(185,150,115,.16)">
+                <div style="font-size:12px;letter-spacing:1.5px;font-weight:700;color:#B99673;margin-bottom:20px">ALOCAÇÃO SUGERIDA</div>
+                <div data-alloc style="display:flex;align-items:flex-end;gap:14px;height:160px;margin-bottom:18px">
+                  <sc-for list="{{ r_alloc }}" as="a" hint-placeholder-count="3">
+                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+                      <span style="font-family:'Kanit',sans-serif;font-weight:700;font-size:18px;color:#B99673;margin-bottom:8px">{{ a.pct }}%</span>
+                      <div style="width:100%;background:{{ a.color }};border-radius:3px 3px 0 0;height:{{ a.h }};transform-origin:bottom;animation:rd-grow .6s ease both"></div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <sc-for list="{{ r_alloc }}" as="a" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:rgba(235,230,230,.78)">
+                      <span style="width:11px;height:11px;border-radius:2px;background:{{ a.color }};flex-shrink:0"></span>{{ a.label }}
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <!-- soluções recomendadas -->
+              <div style="padding:32px">
+                <div style="font-size:12px;letter-spacing:1.5px;font-weight:700;color:#B99673;margin-bottom:20px">SOLUÇÕES RECOMENDADAS</div>
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <sc-for list="{{ r_recs }}" as="rec" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:flex-start;gap:12px">
+                      <span style="width:8px;height:8px;background:#B99673;transform:rotate(45deg);margin-top:6px;flex-shrink:0"></span>
+                      <span style="font-size:14.5px;line-height:1.5;color:#EBE6E6">{{ rec }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+                <a href="Solucoes.dc.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-weight:600;color:#B99673;font-size:14px" style-hover="color:#cda884">Ver soluções em detalhe →</a>
+              </div>
+            </div>
+
+            <!-- salvar / contato -->
+            <div style="padding:32px;border-top:1px solid rgba(185,150,115,.16);background:rgba(15,85,100,.2)">
+              <sc-if value="{{ notSaved }}" hint-placeholder-val="{{ true }}">
+                <div>
+                  <h3 style="font-family:'Kanit',sans-serif;font-weight:600;font-size:19px;color:#EBE6E6">Receba uma análise completa</h3>
+                  <p style="font-size:14px;color:rgba(235,230,230,.65);margin-top:6px;margin-bottom:18px">Deixe seu contato e um especialista detalha uma estratégia para o seu perfil.</p>
+                  <div style="display:flex;gap:12px;flex-wrap:wrap">
+                    <input value="{{ nome }}" onChange="{{ onNome }}" placeholder="Seu nome" style="flex:1;min-width:160px;background:#0F3241;border:1px solid rgba(235,230,230,.18);color:#EBE6E6;font-size:15px;padding:13px 15px;border-radius:3px;outline:none"/>
+                    <input value="{{ email }}" onChange="{{ onEmail }}" placeholder="Seu e-mail" style="flex:1;min-width:160px;background:#0F3241;border:1px solid rgba(235,230,230,.18);color:#EBE6E6;font-size:15px;padding:13px 15px;border-radius:3px;outline:none"/>
+                    <button onClick="{{ saveLead }}" style="background:#B99673;color:#0F3241;font-weight:700;font-size:15px;padding:13px 24px;border:none;border-radius:3px;cursor:pointer" style-hover="background:#cda884">Enviar</button>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ saved }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:14px">
+                  <div style="width:42px;height:42px;border:2px solid #5fb98c;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                    <div style="width:18px;height:11px;border-left:2.5px solid #5fb98c;border-bottom:2.5px solid #5fb98c;transform:rotate(-45deg);margin-top:-4px"></div>
+                  </div>
+                  <div>
+                    <div style="font-weight:600;font-size:16px;color:#EBE6E6">Análise registrada!</div>
+                    <div style="font-size:13.5px;color:rgba(235,230,230,.65)">Um especialista entrará em contato em breve.</div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="text-align:center;margin-top:20px">
+            <button onClick="{{ restart }}" style="background:transparent;border:1px solid rgba(235,230,230,.25);color:rgba(235,230,230,.75);font-size:14px;font-weight:600;padding:12px 24px;border-radius:3px;cursor:pointer" style-hover="border-color:#B99673;color:#B99673">Refazer análise</button>
+          </div>
+          <p style="font-size:12px;line-height:1.55;color:rgba(235,230,230,.42);text-align:center;margin-top:18px;max-width:560px;margin-left:auto;margin-right:auto">Resultado indicativo e educativo. A alocação ideal é definida com um especialista, considerando sua situação completa.</p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <footer style="background:#0A2632;padding:48px 32px;border-top:1px solid rgba(185,150,115,.18)">
+    <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px">
+      <a href="Home.dc.html" style="display:flex;align-items:center">
+        <img src="assets/reddere-mark.png" alt="Reddere Investimentos" style="height:30px;width:auto;display:block"/>
+      </a>
+      <span style="font-size:12px;color:rgba(235,230,230,.42)">© 2026 Reddere · Vencer com Lealdade</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    menuOpen: false, scrolled: false,
+    step: 0, answers: [], done: false,
+    nome: '', email: '', saved: false,
+  };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const s = window.scrollY > 30;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentWillUnmount() { window.removeEventListener('scroll', this._onScroll); }
+
+  _questions() {
+    return [
+      { q: 'Qual o principal objetivo deste investimento?',
+        opts: [['Preservar o que já tenho, com segurança', 1], ['Crescer de forma equilibrada ao longo do tempo', 2], ['Maximizar o crescimento, aceitando oscilações', 3], ['Construir patrimônio agressivamente no longo prazo', 4]] },
+      { q: 'Por quanto tempo pretende manter o dinheiro investido?',
+        opts: [['Menos de 1 ano', 1], ['De 1 a 3 anos', 2], ['De 3 a 7 anos', 3], ['Mais de 7 anos', 4]] },
+      { q: 'Se sua carteira caísse 20% em um mês, o que faria?',
+        opts: [['Resgataria tudo imediatamente', 1], ['Resgataria uma parte, preocupado', 2], ['Manteria e esperaria a recuperação', 3], ['Aproveitaria para investir mais', 4]] },
+      { q: 'Como você descreveria seu conhecimento sobre investimentos?',
+        opts: [['Iniciante, prefiro segurança', 1], ['Conheço o básico', 2], ['Tenho boa experiência', 3], ['Sou bastante experiente', 4]] },
+      { q: 'Que parcela da sua renda você consegue investir mensalmente?',
+        opts: [['Não tenho previsibilidade', 1], ['Uma pequena parte', 2], ['Uma parte relevante', 3], ['Uma parte alta e constante', 4]] },
+      { q: 'Qual frase mais combina com você hoje?',
+        opts: [['Quero dormir tranquilo, sem sustos', 1], ['Aceito pouco risco por um retorno melhor', 2], ['Topo riscos calculados por mais retorno', 3], ['Busco os maiores retornos possíveis', 4]] },
+    ];
+  }
+
+  _answer(score) {
+    const answers = [...this.state.answers];
+    answers[this.state.step] = score;
+    const next = this.state.step + 1;
+    const qs = this._questions();
+    if (next >= qs.length) {
+      this.setState({ answers, done: true });
+      try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
+    } else {
+      this.setState({ answers, step: next });
+    }
+  }
+
+  _profile() {
+    const a = this.state.answers;
+    const total = a.reduce((s, x) => s + (x || 0), 0); // 6..24
+    const max = this._questions().length * 4;
+    const score = Math.round((total / max) * 100);
+    let perfil, desc, alloc, recs;
+    if (total <= 10) {
+      perfil = 'Conservador';
+      desc = 'Você prioriza segurança e previsibilidade. Pequenas oscilações já incomodam, então o foco é proteger o capital.';
+      alloc = [['Renda fixa', 80, '#B99673'], ['Multimercado', 15, '#0F8a9c'], ['Renda variável', 5, '#5fb98c']];
+      recs = ['Renda fixa e reserva de emergência', 'Seguro de vida para proteção da família', 'Planejamento financeiro e patrimonial'];
+    } else if (total <= 15) {
+      perfil = 'Moderado';
+      desc = 'Você busca equilíbrio: aceita um pouco de risco em troca de retornos melhores, sem abrir mão da estabilidade.';
+      alloc = [['Renda fixa', 55, '#B99673'], ['Renda variável', 30, '#5fb98c'], ['Internacional', 15, '#0F8a9c']];
+      recs = ['Carteira equilibrada de renda fixa e variável', 'Previdência privada com eficiência tributária', 'Planejamento sucessório'];
+    } else if (total <= 20) {
+      perfil = 'Arrojado';
+      desc = 'Você tolera oscilações relevantes em busca de crescimento consistente no longo prazo.';
+      alloc = [['Renda variável', 50, '#5fb98c'], ['Renda fixa', 30, '#B99673'], ['Internacional', 20, '#0F8a9c']];
+      recs = ['Consultoria de investimentos personalizada', 'Câmbio e investimentos internacionais', 'Planejamento sucessório e proteção de capital'];
+    } else {
+      perfil = 'Agressivo';
+      desc = 'Você foca em maximizar retornos no longo prazo e está confortável com alta volatilidade.';
+      alloc = [['Renda variável', 60, '#5fb98c'], ['Internacional', 30, '#0F8a9c'], ['Renda fixa', 10, '#B99673']];
+      recs = ['Carteira de crescimento com gestão ativa', 'Investimentos internacionais e diversificação global', 'Estruturas de proteção e sucessão patrimonial'];
+    }
+    return { perfil, desc, score, alloc, recs };
+  }
+
+  _saveLead = () => {
+    const r = this._profile();
+    const nome = this.state.nome.trim();
+    const email = this.state.email.trim();
+    window.ReddereStore.addPerfil({ perfil: r.perfil, score: r.score, contato: nome || email || 'Anônimo' });
+    if (nome || email) {
+      window.ReddereStore.addContato({
+        nome: nome || '(via análise de perfil)', email, telefone: '',
+        origem: 'Análise de perfil',
+        mensagem: 'Perfil identificado: ' + r.perfil + ' (' + r.score + '/100).',
+      });
+    }
+    this.setState({ saved: true });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const qs = this._questions();
+
+    if (s.done) {
+      const r = this._profile();
+      const alloc = r.alloc.map(([label, pct, color]) => ({ label, pct, color, h: pct + '%' }));
+      return {
+        menuOpen: s.menuOpen,
+        headerStyle: this._headerStyle(),
+        toggleMenu: () => this.setState(p => ({ menuOpen: !p.menuOpen })),
+        inQuiz: false, inResult: true,
+        r_perfil: r.perfil, r_desc: r.desc, r_alloc: alloc, r_recs: r.recs,
+        nome: s.nome, email: s.email,
+        onNome: e => this.setState({ nome: e.target.value }),
+        onEmail: e => this.setState({ email: e.target.value }),
+        saveLead: this._saveLead,
+        notSaved: !s.saved, saved: s.saved,
+        restart: () => this.setState({ step: 0, answers: [], done: false, saved: false, nome: '', email: '' }),
+      };
+    }
+
+    const q = qs[s.step];
+    const optStyleBase = {
+      display: 'flex', alignItems: 'center', gap: '14px',
+      background: '#0F3241', border: '1px solid rgba(235,230,230,.16)',
+      color: '#EBE6E6', fontSize: '15.5px', fontWeight: 500,
+      padding: '16px 18px', borderRadius: '4px', cursor: 'pointer', width: '100%',
+      transition: 'all .18s',
+    };
+    const options = q.opts.map(([label, score]) => ({
+      label,
+      onClick: () => this._answer(score),
+      style: optStyleBase,
+      dotStyle: { width: '18px', height: '18px', borderRadius: '50%', border: '1.5px solid rgba(185,150,115,.5)', flexShrink: 0 },
+    }));
+
+    const pct = Math.round((s.step / qs.length) * 100);
+    return {
+      menuOpen: s.menuOpen,
+      headerStyle: this._headerStyle(),
+      toggleMenu: () => this.setState(p => ({ menuOpen: !p.menuOpen })),
+      inQuiz: true, inResult: false,
+      stepKey: 'q' + s.step,
+      stepNum: s.step + 1, total: qs.length,
+      pct, pctW: pct + '%',
+      qText: q.q, options,
+      back: () => { if (s.step > 0) this.setState({ step: s.step - 1 }); },
+      backStyle: {
+        background: 'transparent', border: '1px solid rgba(235,230,230,.2)',
+        color: s.step > 0 ? 'rgba(235,230,230,.75)' : 'rgba(235,230,230,.25)',
+        fontSize: '14px', fontWeight: 600, padding: '11px 18px', borderRadius: '3px',
+        cursor: s.step > 0 ? 'pointer' : 'default',
+      },
+    };
+  }
+
+  _headerStyle() {
+    return {
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      background: this.state.scrolled ? 'rgba(10,38,50,.92)' : 'rgba(10,38,50,.55)',
+      backdropFilter: 'blur(12px)',
+      borderBottom: this.state.scrolled ? '1px solid rgba(185,150,115,.18)' : '1px solid transparent',
+      transition: 'all .3s ease', color: '#EBE6E6',
+    };
+  }
+}
+</script>
+</body>
+</html>
