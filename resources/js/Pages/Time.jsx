@@ -71,7 +71,7 @@ export default function Time() {
             <Head title="Time" />
 
             {/* HERO */}
-            <section className="relative pt-[160px] pb-20 px-8 overflow-hidden">
+            <section className="relative pt-[160px] pb-20 px-5 md:px-8 overflow-hidden">
                 <div className="absolute inset-0 bg-grid-gold pointer-events-none" />
                 <div className="max-w-[1240px] mx-auto relative text-center">
                     <div className="text-xs tracking-[2.5px] font-bold text-rd-gold mb-4">NOSSO TIME</div>
@@ -85,7 +85,7 @@ export default function Time() {
             </section>
 
             {/* NOSSOS VALORES */}
-            <section className="bg-rd-dark py-20 px-8 border-y border-rd-gold/16">
+            <section className="bg-rd-dark py-20 px-5 md:px-8 border-y border-rd-gold/16">
                 <div className="max-w-[1240px] mx-auto">
                     <div className="text-center mb-12">
                         <div className="text-xs tracking-[2.5px] font-bold text-rd-gold mb-3">O QUE NOS GUIA</div>
@@ -95,7 +95,7 @@ export default function Time() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {VALUES.map((v) => (
-                            <div key={v.title} className="bg-[rgba(15,85,100,.25)] border border-rd-gold/18 rounded p-8">
+                            <div key={v.title} className="bg-[rgba(15,85,100,.25)] border border-rd-gold/18 rounded p-6 md:p-8">
                                 <div className="w-10 h-10 border border-rd-gold/50 rounded flex items-center justify-center mb-4">
                                     <div className="w-4 h-4 bg-rd-gold" style={{ clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)' }} />
                                 </div>
@@ -108,7 +108,7 @@ export default function Time() {
             </section>
 
             {/* TIME */}
-            <section className="bg-rd-primary py-24 px-8">
+            <section className="bg-rd-primary py-24 px-5 md:px-8">
                 <div className="max-w-[1240px] mx-auto">
                     <div className="text-center mb-14">
                         <div className="text-xs tracking-[2.5px] font-bold text-rd-gold mb-3">ESPECIALISTAS</div>
@@ -118,7 +118,7 @@ export default function Time() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         {TEAM.map((member) => (
-                            <div key={member.name} className="bg-[rgba(15,85,100,.3)] border border-rd-gold/16 rounded p-7 transition-all hover:border-rd-gold/40 hover:-translate-y-1">
+                            <div key={member.name} className="bg-[rgba(15,85,100,.3)] border border-rd-gold/16 rounded p-6 md:p-7 transition-all hover:border-rd-gold/40 hover:-translate-y-1">
                                 <div className="flex items-center gap-4 mb-5">
                                     <div className="w-14 h-14 rounded-full bg-rd-teal border-2 border-rd-gold/50 flex items-center justify-center font-kanit font-bold text-rd-gold text-xl shrink-0">
                                         {member.initials}
@@ -143,7 +143,7 @@ export default function Time() {
             </section>
 
             {/* CTA */}
-            <section className="bg-rd-teal py-20 px-8 relative overflow-hidden">
+            <section className="bg-rd-teal py-20 px-5 md:px-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid-gold pointer-events-none" />
                 <div className="max-w-[680px] mx-auto text-center relative">
                     <h2 className="font-kanit font-bold text-[clamp(28px,3.6vw,42px)] leading-tight text-rd-cream tracking-tight">
@@ -154,7 +154,7 @@ export default function Time() {
                     </p>
                     <Link
                         href="/contato"
-                        className="inline-flex items-center gap-2.5 mt-8 bg-rd-gold text-rd-primary font-bold text-[16px] px-8 py-4 rounded-sm transition-all hover:bg-rd-gold-light hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2.5 mt-8 bg-rd-gold text-rd-primary font-bold text-[16px] px-5 md:px-8 py-4 rounded-sm transition-all hover:bg-rd-gold-light hover:-translate-y-0.5"
                     >
                         Agendar uma conversa →
                     </Link>

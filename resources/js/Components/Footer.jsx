@@ -2,10 +2,14 @@ import { Link } from '@inertiajs/react';
 
 export default function Footer() {
     return (
-        <footer className="bg-rd-black border-t border-rd-gold/16 py-14 px-8">
-            <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
-                <div className="col-span-2 md:col-span-1">
-                    <div className="font-kanit font-bold text-xl tracking-widest text-rd-cream mb-3">REDDERE</div>
+        <footer className="bg-rd-black border-t border-rd-gold/16 py-14 px-5 md:px-8">
+            <div className="max-w-[1240px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div className="sm:col-span-2 lg:col-span-1">
+                    <img
+                        src="/images/footer-logo.png"
+                        alt="Reddere Soluções Financeiras"
+                        className="h-32 md:h-36 w-auto mb-4"
+                    />
                     <p className="text-sm text-rd-cream/55 leading-relaxed max-w-[220px]">
                         Vencer com Lealdade. Soluções financeiras completas para proteger e multiplicar seu patrimônio.
                     </p>
@@ -18,6 +22,8 @@ export default function Footer() {
                             { href: '/#sobre', label: 'Sobre' },
                             { href: '/solucoes', label: 'Soluções' },
                             { href: '/consultor', label: 'Consultor On-line' },
+                            { href: '/raiox-financeiro', label: 'RaioX Financeiro' },
+                            { href: '/artigos', label: 'Artigos' },
                             { href: '/time', label: 'Time' },
                             { href: '/contato', label: 'Contato' },
                         ].map((l) => (
@@ -56,17 +62,30 @@ export default function Footer() {
                         <li>contato@reddere.com.br</li>
                         <li>+55 (11) 9000-0000</li>
                         <li>São Paulo, SP</li>
+                        <li className="pt-2 border-t border-rd-cream/8">
+                            <Link href="/politica-de-privacidade" className="hover:text-rd-gold transition-colors">
+                                Política de Privacidade
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/termos-do-usuario" className="hover:text-rd-gold transition-colors">
+                                Termos do Usuário
+                            </Link>
+                        </li>
                     </ul>
                 </div>
             </div>
 
-            <div className="max-w-[1240px] mx-auto mt-10 pt-6 border-t border-rd-cream/8 flex flex-wrap justify-between items-center gap-4">
+            <div className="max-w-[1240px] mx-auto mt-10 pt-6 border-t border-rd-cream/8 flex flex-col md:flex-row md:flex-wrap justify-between items-start md:items-center gap-4">
                 <p className="text-xs text-rd-cream/35">
                     © {new Date().getFullYear()} Reddere Soluções Financeiras. Todos os direitos reservados.
                 </p>
                 <p className="text-xs text-rd-cream/35">
                     Regulada e supervisionada pela CVM · ANBIMA · CFP®
                 </p>
+                <Link href="/admin" className="text-xs text-rd-cream/35 hover:text-rd-gold transition-colors">
+                    Área administrativa
+                </Link>
             </div>
         </footer>
     );

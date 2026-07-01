@@ -48,7 +48,7 @@ export default function Contato() {
             <Head title="Contato" />
 
             {/* HERO */}
-            <section className="relative pt-[160px] pb-16 px-8 overflow-hidden">
+            <section className="relative pt-[160px] pb-16 px-5 md:px-8 overflow-hidden">
                 <div className="absolute inset-0 bg-grid-gold pointer-events-none" />
                 <div className="max-w-[1240px] mx-auto relative">
                     <div className="text-xs tracking-[2.5px] font-bold text-rd-gold mb-4">CONTATO</div>
@@ -62,13 +62,13 @@ export default function Contato() {
             </section>
 
             {/* CONTEÚDO */}
-            <section className="bg-rd-primary px-8 pb-24">
+            <section className="bg-rd-primary px-5 md:px-8 pb-24">
                 <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 items-start">
 
                     {/* FORMULÁRIO */}
                     <div>
                         {submitted ? (
-                            <div className="bg-rd-teal/30 border border-rd-green/40 rounded p-8 text-center animate-rd-pop">
+                            <div className="bg-rd-teal/30 border border-rd-green/40 rounded p-6 md:p-8 text-center animate-rd-pop">
                                 <div className="w-12 h-12 bg-rd-green/20 border border-rd-green/40 rounded-full flex items-center justify-center mx-auto mb-4">
                                     <span className="text-rd-green text-xl font-bold">✓</span>
                                 </div>
@@ -152,7 +152,7 @@ export default function Contato() {
                                 <button
                                     type="submit"
                                     disabled={processing}
-                                    className="bg-rd-gold text-rd-primary font-bold text-[15px] py-4 px-8 rounded-sm transition-all hover:bg-rd-gold-light disabled:opacity-60 cursor-pointer"
+                                    className="bg-rd-gold text-rd-primary font-bold text-[15px] py-4 px-5 md:px-8 rounded-sm transition-all hover:bg-rd-gold-light disabled:opacity-60 cursor-pointer"
                                 >
                                     {processing ? 'Enviando...' : 'Enviar mensagem →'}
                                 </button>
@@ -166,7 +166,7 @@ export default function Contato() {
 
                     {/* INFORMAÇÕES */}
                     <div className="flex flex-col gap-6">
-                        <div className="bg-rd-dark border border-rd-gold/18 rounded p-8">
+                        <div className="bg-rd-dark border border-rd-gold/18 rounded p-6 md:p-8">
                             <div className="text-xs tracking-[2px] font-bold text-rd-gold mb-6">INFORMAÇÕES DE CONTATO</div>
                             <div className="flex flex-col gap-5">
                                 {CONTACT_ITEMS.map((item) => (
@@ -178,7 +178,7 @@ export default function Contato() {
                             </div>
                         </div>
 
-                        <div className="bg-[rgba(15,85,100,.35)] border border-rd-gold/18 rounded p-7">
+                        <div className="bg-[rgba(15,85,100,.35)] border border-rd-gold/18 rounded p-6 md:p-7">
                             <div className="flex items-center gap-2.5 mb-3">
                                 <span className="w-2 h-2 bg-rd-green rounded-full shadow-[0_0_8px_#5fb98c]" />
                                 <span className="text-xs tracking-[1.5px] font-semibold text-rd-gold">RESPOSTA RÁPIDA</span>

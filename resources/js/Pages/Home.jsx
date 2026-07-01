@@ -10,6 +10,8 @@ const SOLUTIONS = [
         title: 'Consultoria de investimentos personalizada',
         desc: 'Construímos uma carteira alinhada ao seu perfil de risco, horizonte e objetivos. Nada de produto de prateleira.',
         short: 'Consultoria',
+        image: '/images/Consultoria.png',
+        icon: 'chart',
     },
     {
         id: 'planejamento',
@@ -18,6 +20,8 @@ const SOLUTIONS = [
         title: 'Planejamento financeiro e patrimonial',
         desc: 'Organizamos suas finanças com visão de futuro, conectando metas de curto, médio e longo prazo a um plano executável.',
         short: 'Planejamento',
+        image: '/images/Planejamento.png',
+        icon: 'map',
     },
     {
         id: 'sucessorio',
@@ -26,6 +30,8 @@ const SOLUTIONS = [
         title: 'Planejamento sucessório',
         desc: 'Estruturas que garantem a transmissão eficiente do patrimônio entre gerações, reduzindo custos, impostos e conflitos.',
         short: 'Sucessório',
+        image: '/images/Sucessorio.png',
+        icon: 'tree',
     },
     {
         id: 'seguro-vida',
@@ -34,6 +40,8 @@ const SOLUTIONS = [
         title: 'Seguro de vida',
         desc: 'Proteção financeira para quem você ama. Garantimos liquidez imediata para a família e preservamos o patrimônio.',
         short: 'Seg. Vida',
+        image: '/images/Seguro de vida.png',
+        icon: 'heart',
     },
     {
         id: 'previdencia',
@@ -42,6 +50,8 @@ const SOLUTIONS = [
         title: 'Previdência privada',
         desc: 'Planejamento de aposentadoria com os veículos certos, escolha tributária adequada e horizonte bem definido.',
         short: 'Previdência',
+        image: '/images/Previdencia.png',
+        icon: 'clock',
     },
     {
         id: 'renda',
@@ -50,14 +60,8 @@ const SOLUTIONS = [
         title: 'Renda fixa e renda variável',
         desc: 'Equilíbrio entre a previsibilidade da renda fixa e o potencial da renda variável, com gestão de risco rigorosa.',
         short: 'Renda',
-    },
-    {
-        id: 'internacional',
-        kicker: 'GLOBAL',
-        category: 'Investimentos',
-        title: 'Câmbio e investimentos internacionais',
-        desc: 'Diversificação geográfica e exposição a moedas fortes para reduzir risco e capturar oportunidades fora do Brasil.',
-        short: 'Internacional',
+        image: '/images/Renda.png',
+        icon: 'coins',
     },
     {
         id: 'seguro-social',
@@ -66,6 +70,8 @@ const SOLUTIONS = [
         title: 'Seguro social e planejamento previdenciário',
         desc: 'Análise da sua situação junto ao INSS e estratégias para otimizar benefícios e o melhor momento de se aposentar.',
         short: 'Seg. Social',
+        image: '/images/Seguro Social.png',
+        icon: 'shield',
     },
 ];
 
@@ -80,27 +86,6 @@ const HERO_STATS = [
     { value: '+R$ 2bi', label: 'Sob consultoria' },
     { value: '500+', label: 'Famílias atendidas' },
     { value: '98%', label: 'Satisfação' },
-];
-
-const ARTICLES = [
-    {
-        tag: 'Mercado',
-        date: 'Jun 2025',
-        title: 'Juros em queda: o que muda na sua carteira de renda fixa?',
-        summary: 'Com o ciclo de cortes da Selic, entenda como reposicionar seus investimentos para manter rentabilidade real.',
-    },
-    {
-        tag: 'Planejamento',
-        date: 'Mai 2025',
-        title: 'Holding familiar: proteção patrimonial e eficiência tributária',
-        summary: 'Saiba quando vale a pena estruturar uma holding e quais são os passos para proteger o patrimônio familiar.',
-    },
-    {
-        tag: 'Previdência',
-        date: 'Mai 2025',
-        title: 'PGBL ou VGBL? Como escolher o plano certo para você',
-        summary: 'A escolha entre os dois planos depende do seu regime tributário. Entenda as diferenças e tome a melhor decisão.',
-    },
 ];
 
 const TESTIMONIALS = [
@@ -139,6 +124,71 @@ function GlyphIcon() {
     );
 }
 
+function SolutionIcon({ type }) {
+    const iconProps = { className: 'w-5 h-5 text-rd-gold' };
+
+    switch(type) {
+        case 'chart':
+            return (
+                <svg {...iconProps} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+            );
+        case 'map':
+            return (
+                <svg {...iconProps} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6 3m-6-3v-13m6 3l5.447-2.724A1 1 0 0121 5.618v10.764a1 1 0 01-1.447.894L15 20m0-13v13" />
+                </svg>
+            );
+        case 'tree':
+            return (
+                <svg {...iconProps} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15h4v2h-4zm0-5h4v2h-4zm0-5h4v2h-4z" />
+                    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth={2} />
+                </svg>
+            );
+        case 'heart':
+            return (
+                <svg {...iconProps} fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>
+            );
+        case 'clock':
+            return (
+                <svg {...iconProps} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            );
+        case 'coins':
+            return (
+                <svg {...iconProps} fill="currentColor" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth={2} />
+                    <path d="M12 6v6m0 0l-3-3m3 3l3-3" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="8" cy="16" r="2" fill="currentColor" />
+                    <circle cx="16" cy="18" r="2" fill="currentColor" />
+                </svg>
+            );
+        case 'shield':
+            return (
+                <svg {...iconProps} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            );
+        default:
+            return <GlyphIcon />;
+    }
+}
+
+function articleImage(article) {
+    if (!article?.cover_image) return null;
+    return article.cover_image.startsWith('/') ? article.cover_image : `/storage/${article.cover_image}`;
+}
+
+function fmtArticleDate(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' }).replace('.', '');
+}
+
 function Simulator() {
     const [valorInicial, setValorInicial] = useState(50000);
     const [aporteMensal, setAporteMensal] = useState(2000);
@@ -159,7 +209,7 @@ function Simulator() {
     const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
 
     return (
-        <section id="simulador" className="bg-rd-primary py-24 px-8 relative overflow-hidden">
+        <section id="simulador" className="bg-rd-primary py-24 px-5 md:px-8 relative overflow-hidden">
             <div className="absolute top-[-120px] left-[-120px] w-[420px] h-[420px] rounded-full bg-[radial-gradient(circle,rgba(185,150,115,.14),transparent_70%)] pointer-events-none" />
             <div className="max-w-[1080px] mx-auto relative">
                 <div className="text-center mb-12">
@@ -172,7 +222,7 @@ function Simulator() {
                     </p>
                 </div>
 
-                <div className="bg-rd-dark border border-rd-gold/22 rounded p-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div className="bg-rd-dark border border-rd-gold/22 rounded p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                     <div className="flex flex-col gap-6">
                         {[
                             { label: 'Aporte inicial', value: valorInicial, fmt: fmt(valorInicial), min: 0, max: 2000000, step: 5000, setter: setValorInicial },
@@ -212,7 +262,7 @@ function Simulator() {
                         <div className="font-kanit font-bold text-[clamp(34px,4.4vw,52px)] text-rd-gold leading-tight my-4 animate-rd-fade">
                             {fmt(total)}
                         </div>
-                        <div className="flex justify-around mt-7 pt-6 border-t border-rd-cream/12">
+                        <div className="flex flex-col sm:flex-row sm:justify-around gap-4 mt-7 pt-6 border-t border-rd-cream/12">
                             <div>
                                 <div className="text-xs text-rd-cream/60 mb-1">Total investido</div>
                                 <div className="font-kanit font-semibold text-xl text-rd-cream">{fmt(investido)}</div>
@@ -235,7 +285,7 @@ function Simulator() {
     );
 }
 
-export default function Home() {
+export default function Home({ articles = [] }) {
     const [featuredIdx, setFeaturedIdx] = useState(0);
 
     useEffect(() => {
@@ -250,7 +300,7 @@ export default function Home() {
             <Head title="Soluções Financeiras Completas" />
 
             {/* HERO */}
-            <section className="relative pt-[150px] pb-[70px] px-8 bg-rd-primary overflow-hidden">
+            <section className="relative pt-[150px] pb-[70px] px-5 md:px-8 bg-rd-primary overflow-hidden">
                 <div className="absolute inset-0 bg-grid-gold pointer-events-none" />
                 <div className="absolute top-[-200px] right-[-120px] w-[620px] h-[620px] rounded-full bg-[radial-gradient(circle,rgba(15,85,100,.5),transparent_68%)] pointer-events-none" />
 
@@ -282,7 +332,7 @@ export default function Home() {
                                 Descubra o que você precisa!
                             </Link>
                         </div>
-                        <div className="flex gap-8 mt-10 flex-wrap">
+                        <div className="flex gap-6 sm:gap-8 mt-10 flex-wrap">
                             {HERO_STATS.map((s) => (
                                 <div key={s.label}>
                                     <div className="font-kanit font-bold text-2xl text-rd-gold leading-none">{s.value}</div>
@@ -295,28 +345,45 @@ export default function Home() {
                     {/* SHOWCASE */}
                     <div className="relative max-w-[460px] w-full mx-auto animate-rd-fade">
                         <div className="absolute -top-6 -right-6 w-[150px] h-[150px] border border-dashed border-rd-gold/30 rounded-full animate-rd-spin pointer-events-none" />
-                        <div className="relative bg-gradient-to-br from-[rgba(15,85,100,.55)] to-[rgba(10,38,50,.85)] border border-rd-gold/28 rounded-xl p-6 backdrop-blur-sm shadow-[0_30px_70px_rgba(0,0,0,.4)]">
-                            <div className="flex justify-between items-center mb-5">
+                        <div className="relative bg-gradient-to-br from-[rgba(15,85,100,.55)] to-[rgba(10,38,50,.85)] border border-rd-gold/28 rounded-xl p-4 sm:p-6 backdrop-blur-sm shadow-[0_30px_70px_rgba(0,0,0,.4)] overflow-hidden">
+                            <div className="flex justify-between items-center mb-5 relative z-10">
                                 <span className="text-[11px] tracking-[2px] font-bold text-rd-gold">CARTEIRA DE SOLUÇÕES</span>
                                 <span className="text-xs font-mono text-rd-cream/55">{featuredIdx + 1}/{SOLUTIONS.length}</span>
                             </div>
-                            <div className="bg-rd-primary border border-rd-gold/25 rounded-lg p-7 animate-rd-cardin" key={featured.id}>
-                                <div className="flex items-center gap-4 mb-4">
-                                    <div className="w-14 h-14 border-[1.5px] border-rd-gold flex items-center justify-center shrink-0 rounded">
-                                        <GlyphIcon />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10.5px] tracking-[1.5px] font-bold text-rd-gold">{featured.kicker}</div>
-                                        <div className="text-xs text-rd-cream/50 mt-0.5">{featured.category}</div>
+                            <div
+                                className="relative bg-cover bg-center border border-rd-gold/25 rounded-lg overflow-hidden shadow-lg flex flex-col justify-between min-h-[360px] sm:h-[420px] p-5 sm:p-7"
+                                style={{
+                                    backgroundImage: `linear-gradient(135deg, rgba(15, 85, 100, 0.65) 0%, rgba(10, 38, 50, 0.75) 100%), url('${featured.image}')`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center right',
+                                }}
+                                key={featured.id}
+                            >
+                                {/* Header do card */}
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <div className="w-14 h-14 border-[1.5px] border-rd-gold flex items-center justify-center shrink-0 rounded bg-rd-primary/60 backdrop-blur-sm">
+                                            <GlyphIcon />
+                                        </div>
+                                        <div>
+                                            <div className="text-[10.5px] tracking-[1.5px] font-bold text-rd-gold">{featured.kicker}</div>
+                                            <div className="text-xs text-rd-cream/70 mt-0.5">{featured.category}</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <h3 className="font-kanit font-semibold text-[22px] leading-snug text-rd-cream">{featured.title}</h3>
-                                <p className="text-sm leading-relaxed text-rd-cream/68 mt-2.5">{featured.desc}</p>
-                                <Link href="/solucoes" className="inline-flex items-center gap-1.5 mt-4 font-semibold text-rd-gold text-[13.5px] hover:text-rd-gold-light">
-                                    Conhecer solução →
-                                </Link>
+
+                                {/* Conteúdo principal - posicionado no final */}
+                                <div className="relative z-10 flex flex-col gap-3">
+                                    <h3 className="font-kanit font-semibold text-[20px] leading-snug text-rd-cream">{featured.title}</h3>
+                                    <p className="text-sm leading-relaxed text-rd-cream/85 line-clamp-2">{featured.desc}</p>
+                                    <Link href="/solucoes" className="inline-flex items-center gap-1.5 font-semibold text-rd-gold text-[13.5px] hover:text-rd-gold-light transition-colors mt-auto">
+                                        Conhecer solução →
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="flex flex-wrap gap-2 mt-5">
+
+                            {/* Botões de navegação */}
+                            <div className="flex flex-wrap gap-2 mt-5 relative z-10">
                                 {SOLUTIONS.map((s, i) => (
                                     <button
                                         key={s.id}
@@ -338,9 +405,9 @@ export default function Home() {
 
             {/* NÚMEROS */}
             <section className="bg-rd-teal">
-                <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-4">
+                <div className="max-w-[1240px] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                     {STATS.map((s, i) => (
-                        <div key={i} className="px-8 py-11 border-r border-rd-cream/10 last:border-r-0 text-center">
+                        <div key={i} className="px-5 md:px-8 py-9 sm:py-11 border-b sm:border-b-0 sm:border-r border-rd-cream/10 last:border-b-0 last:border-r-0 text-center">
                             <div className="font-kanit font-bold text-[clamp(30px,3.4vw,44px)] text-rd-gold leading-none">{s.value}</div>
                             <div className="text-[13.5px] text-rd-cream/82 mt-2 tracking-[.3px]">{s.label}</div>
                         </div>
@@ -349,7 +416,7 @@ export default function Home() {
             </section>
 
             {/* SOBRE */}
-            <section id="sobre" className="bg-rd-warm text-[#2a2620] py-24 px-8">
+            <section id="sobre" className="bg-rd-warm text-[#2a2620] py-24 px-5 md:px-8">
                 <div className="max-w-[1240px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-[70px] items-center">
                     <div>
                         <div className="text-xs tracking-[2.5px] font-bold text-rd-gold mb-4">SOBRE A REDDERE</div>
@@ -370,17 +437,21 @@ export default function Home() {
                             ))}
                         </div>
                     </div>
-                    <div className="relative aspect-[4/5] bg-rd-primary rounded overflow-hidden flex items-center justify-center">
-                        <div className="absolute inset-0 bg-grid-gold-sm" />
-                        <div className="relative text-center font-mono text-rd-gold/70 text-[12.5px] tracking-[1px]">
-                            [ foto · ambiente<br />corporativo ]
-                        </div>
+                    <div
+                        className="relative aspect-[4/5] bg-rd-primary rounded overflow-hidden flex items-center justify-center bg-cover bg-center"
+                        style={{
+                            backgroundImage: `linear-gradient(135deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.35) 100%), url('/images/Lealdade.png')`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                        }}
+                    >
+                        <div className="absolute inset-0 bg-grid-gold-sm opacity-30" />
                     </div>
                 </div>
             </section>
 
             {/* SOLUÇÕES PREVIEW */}
-            <section className="bg-rd-primary py-24 px-8 relative">
+            <section className="bg-rd-primary py-24 px-5 md:px-8 relative">
                 <div className="absolute inset-0 bg-grid-gold pointer-events-none opacity-70" />
                 <div className="max-w-[1240px] mx-auto relative">
                     <div className="flex justify-between items-end flex-wrap gap-5 mb-12">
@@ -398,10 +469,10 @@ export default function Home() {
                         {SOLUTIONS.slice(0, 6).map((sol) => (
                             <div
                                 key={sol.id}
-                                className="bg-[rgba(15,85,100,.35)] border border-rd-gold/18 p-8 rounded transition-all duration-200 hover:border-rd-gold hover:bg-[rgba(15,85,100,.6)] hover:-translate-y-1"
+                                className="bg-[rgba(15,85,100,.35)] border border-rd-gold/18 p-6 md:p-8 rounded transition-all duration-200 hover:border-rd-gold hover:bg-[rgba(15,85,100,.6)] hover:-translate-y-1"
                             >
                                 <div className="w-11 h-11 border-[1.5px] border-rd-gold flex items-center justify-center mb-5">
-                                    <div className="w-[18px] h-[18px] bg-rd-gold" style={{ clipPath: 'polygon(50% 0,100% 50%,50% 100%,0 50%)' }} />
+                                    <SolutionIcon type={sol.icon} />
                                 </div>
                                 <h3 className="font-kanit font-semibold text-[19px] text-rd-cream leading-snug">{sol.title}</h3>
                                 <p className="text-[14.5px] leading-relaxed text-rd-cream/66 mt-3">{sol.desc}</p>
@@ -412,7 +483,7 @@ export default function Home() {
             </section>
 
             {/* CONSULTOR CTA */}
-            <section className="bg-rd-teal py-20 px-8 relative overflow-hidden">
+            <section className="bg-rd-teal py-20 px-5 md:px-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-[repeating-linear-gradient(45deg,rgba(185,150,115,.06)_0_1px,transparent_1px_24px)] pointer-events-none" />
                 <div className="max-w-[1080px] mx-auto relative flex flex-col items-center text-center gap-6">
                     <div className="inline-flex items-center gap-2 border border-rd-gold/40 px-4 py-[7px] rounded-sm">
@@ -427,7 +498,7 @@ export default function Home() {
                     </p>
                     <Link
                         href="/consultor"
-                        className="inline-flex items-center gap-2.5 bg-rd-gold text-rd-primary font-bold text-[16px] px-8 py-4 rounded-sm transition-all hover:bg-rd-gold-light hover:-translate-y-0.5"
+                        className="inline-flex items-center gap-2.5 bg-rd-gold text-rd-primary font-bold text-[16px] px-5 md:px-8 py-4 rounded-sm transition-all hover:bg-rd-gold-light hover:-translate-y-0.5"
                     >
                         Descubra o que você precisa! <span className="text-lg">→</span>
                     </Link>
@@ -438,7 +509,7 @@ export default function Home() {
             <Simulator />
 
             {/* INSIGHTS */}
-            <section id="insights" className="bg-rd-warm text-[#2a2620] py-24 px-8">
+            <section id="insights" className="bg-rd-warm text-[#2a2620] py-24 px-5 md:px-8">
                 <div className="max-w-[1240px] mx-auto">
                     <div className="flex justify-between items-end flex-wrap gap-5 mb-12">
                         <div>
@@ -449,33 +520,48 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                        {ARTICLES.map((a, i) => (
-                            <a
-                                key={i}
-                                href="#"
+                        {articles.map((article) => (
+                            <Link
+                                key={article.id}
+                                href={`/artigos/${article.slug}`}
                                 className="bg-white border border-[rgba(125,110,93,.18)] rounded overflow-hidden block transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(15,50,65,.13)]"
                             >
                                 <div className="aspect-video bg-rd-primary relative flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-grid-gold-sm" />
-                                    <span className="relative font-mono text-[11px] text-rd-gold/65">[ imagem ]</span>
+                                    {articleImage(article) ? (
+                                        <img
+                                            src={articleImage(article)}
+                                            alt={article.title}
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <>
+                                            <div className="absolute inset-0 bg-grid-gold-sm" />
+                                            <span className="relative font-mono text-[11px] text-rd-gold/65">[ imagem ]</span>
+                                        </>
+                                    )}
                                 </div>
                                 <div className="p-6">
                                     <div className="flex gap-2.5 items-center text-xs text-rd-gold font-semibold mb-3">
-                                        <span>{a.tag}</span>
-                                        <span className="text-[#bdb3a5]">·</span>
-                                        <span className="text-rd-brown">{a.date}</span>
+                                        {article.category && <span>{article.category}</span>}
+                                        {article.category && article.published_at && <span className="text-[#bdb3a5]">·</span>}
+                                        {article.published_at && <span className="text-rd-brown">{fmtArticleDate(article.published_at)}</span>}
                                     </div>
-                                    <h3 className="font-kanit font-semibold text-[19px] text-rd-primary leading-snug">{a.title}</h3>
-                                    <p className="text-sm leading-relaxed text-rd-brown mt-2.5">{a.summary}</p>
+                                    <h3 className="font-kanit font-semibold text-[19px] text-rd-primary leading-snug">{article.title}</h3>
+                                    <p className="text-sm leading-relaxed text-rd-brown mt-2.5">{article.excerpt}</p>
                                 </div>
-                            </a>
+                            </Link>
                         ))}
                     </div>
+                    {articles.length === 0 && (
+                        <div className="text-center py-14 text-rd-brown/70 text-[15px]">
+                            Em breve, novos artigos por aqui.
+                        </div>
+                    )}
                 </div>
             </section>
 
             {/* DEPOIMENTOS */}
-            <section className="bg-rd-primary py-24 px-8">
+            <section className="bg-rd-primary py-24 px-5 md:px-8">
                 <div className="max-w-[1240px] mx-auto">
                     <div className="text-center mb-14">
                         <div className="text-xs tracking-[2.5px] font-bold text-rd-gold mb-3">QUEM CONFIA NA REDDERE</div>
@@ -485,7 +571,7 @@ export default function Home() {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                         {TESTIMONIALS.map((t, i) => (
-                            <div key={i} className="bg-[rgba(15,85,100,.3)] border border-rd-gold/16 rounded p-8">
+                            <div key={i} className="bg-[rgba(15,85,100,.3)] border border-rd-gold/16 rounded p-6 md:p-8">
                                 <div className="font-kanit text-[46px] text-rd-gold leading-[.6] h-6">"</div>
                                 <p className="text-[16px] leading-relaxed text-rd-cream/88 mt-2">{t.quote}</p>
                                 <div className="flex items-center gap-3 mt-6 pt-5 border-t border-rd-cream/10">
@@ -504,7 +590,7 @@ export default function Home() {
             </section>
 
             {/* CTA FINAL */}
-            <section className="bg-rd-teal py-[90px] px-8 relative overflow-hidden">
+            <section className="bg-rd-teal py-[90px] px-5 md:px-8 relative overflow-hidden">
                 <div className="absolute inset-0 bg-grid-gold pointer-events-none" />
                 <div className="max-w-[780px] mx-auto text-center relative">
                     <h2 className="font-kanit font-bold text-[clamp(30px,4vw,50px)] leading-[1.08] text-rd-cream tracking-tight">
@@ -523,7 +609,7 @@ export default function Home() {
             </section>
 
             {/* CERTIFICAÇÕES */}
-            <section className="bg-rd-dark py-16 px-8 border-t border-rd-gold/16">
+            <section className="bg-rd-dark py-16 px-5 md:px-8 border-t border-rd-gold/16">
                 <div className="max-w-[1240px] mx-auto text-center">
                     <div className="text-xs tracking-[2.5px] font-bold text-rd-gold mb-3">CERTIFICAÇÕES & CONFORMIDADE</div>
                     <h2 className="font-kanit font-bold text-[clamp(24px,2.8vw,34px)] leading-tight text-rd-cream tracking-tight max-w-[640px] mx-auto">

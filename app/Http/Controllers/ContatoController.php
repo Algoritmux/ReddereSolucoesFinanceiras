@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -17,7 +18,7 @@ class ContatoController extends Controller
             'mensagem' => 'nullable|string|max:5000',
         ]);
 
-        // TODO: salvar no banco, enviar e-mail, etc.
+        Contact::create($validated + ['origem' => 'Formulário de contato']);
 
         return redirect()->back()->with('success', 'Mensagem enviada com sucesso!');
     }

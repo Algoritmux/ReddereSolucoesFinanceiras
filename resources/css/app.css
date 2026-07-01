@@ -30,11 +30,26 @@
         scroll-behavior: smooth;
     }
 
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
     body {
         font-family: var(--font-jakarta);
         background-color: #0F3241;
         color: #EBE6E6;
         -webkit-font-smoothing: antialiased;
+    }
+
+    img,
+    video {
+        max-width: 100%;
+        height: auto;
+    }
+
+    :target {
+        scroll-margin-top: 128px;
     }
 
     ::selection {
